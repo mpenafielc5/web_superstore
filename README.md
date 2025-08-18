@@ -10,9 +10,8 @@ Requisitos
 
 Instalación rápida
 # 1 Clonar o copiar el proyecto
-cd ~/Downloads/PruebaPasantia
 
-# 2 Virtualenv
+# 2 Crear un entorno virtual
 python -m venv .venv
 .\.venv\Scripts\Activate
 
@@ -21,7 +20,7 @@ pip install -r requirements.txt
 
 Configuración
 
-# 1 Duplica .env.example a .env y completa:
+# 1 crea un archivo .env
 SECRET_KEY=changeme
 DEBUG=True
 DB_NAME=superstore_db
@@ -31,18 +30,16 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 
 # 2 Crea la base de datos:
-mysql -u root -p -e "CREATE DATABASE superstore_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-
+CREATE DATABASE superstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 # 3 Migraciones:
 python manage.py migrate
 
 Datos
-
-# 1 Coloca el CSV en data/superstore_final_dataset (1).csv (la carpeta data/ está ignorada; el repo incluye data/.keep).
+# 1 Coloca el CSV dentro de la carpeta data
 
 # 2 Carga a MySQL:
-python manage.py load_superstore --csv ".\data\superstore_final_dataset (1).csv"
+python manage.py load_superstore --csv ".\data\nombre-del-dataset.csv"
 
 # 3 Ejecutar
 python manage.py runserver
@@ -53,4 +50,5 @@ Licencia y datos
 
 Código bajo la licencia del repositorio.
 
-El CSV se descarga por cuenta del usuario (no se redistribuye en este repo).
+El CSV se descarga por cuenta del usuario mediante el siguiente enlace: 
+https://www.kaggle.com/datasets/bhanupratapbiswas/superstore-sales?select=superstore_final_dataset+%281%29.csv

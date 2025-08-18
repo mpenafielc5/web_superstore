@@ -12,7 +12,6 @@ staticfiles/
 venv/
 .env
 .env.*
-!.env.example
 *.log
 .pytest_cache/
 .coverage
