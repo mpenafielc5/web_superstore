@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Superstore Dashboard{% endblock %}</title>
+
+  <script>
+    (function(){
+      try{
+        var t = localStorage.getItem('theme');
+        if(t) document.documentElement.setAttribute('data-bs-theme', t);
+        else document.documentElement.setAttribute('data-bs-theme','light');
+      }catch(e){}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+</head>
+<body>
+  <div class="page">
+    <header class="navbar navbar-expand-md">
+      <div class="container-xl d-flex align-items-center justify-content-between">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+          <span class="brand-mark" aria-hidden="true">
+            <i class="ti ti-chart-dots-2"></i>
+          </span>
+          <span class="navbar-brand-text">Superstore</span>
+        </a>
+        <a href="#" class="nav-link px-2" id="themeToggle" title="Tema claro/oscuro" aria-label="Cambiar tema">
+          <i class="ti ti-moon-stars"></i>
+        </a>
+        <a class="btn btn-primary d-md-none" data-bs-toggle="collapse" href="#filtersCollapse" role="button" aria-expanded="false" aria-controls="filtersCollapse">
+          <i class="ti ti-adjustments"></i> Filtros
+        </a>
+      </div>
+    </header>
+
+    <div class="page-header py-3">
+      <div class="container-xl">
+        <h2 class="page-title m-0">{% block header %}Dashboard de Ventas{% endblock %}</h2>
+      </div>
+    </div>
+
+    <div class="page-wrapper">
+      <div class="page-body">
+        <main class="container-xl py-3">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+  <script>
+    (function(){
+      const root = document.documentElement, key='theme';
+      function applyChartTheme(){
+        if(!window.Chart) return;
+        const cs = getComputedStyle(root);
+        Chart.defaults.color = cs.getPropertyValue('--chart-tick').trim();
+        Chart.defaults.borderColor = cs.getPropertyValue('--chart-grid').trim();
+      }
+      applyChartTheme();
+      const btn = document.getElementById('themeToggle');
+      if(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          const now = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-bs-theme', now);
+          localStorage.setItem(key, now);
+          applyChartTheme();
+          document.dispatchEvent(new CustomEvent('theme:change', { detail: now }));
+        });
+      }
+    })();
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
