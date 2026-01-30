@@ -67,6 +67,7 @@
       </div>
     </div>
   </div>
+  {% if ENABLE_SEGMENT_CHART %}
   <div class="col-md-8">
     <div class="card card-stacked">
       <div class="card-body">
@@ -75,6 +76,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
 
 <div class="row row-cards mb-3">
@@ -98,6 +100,7 @@
 </div>
 
 <div class="row row-cards">
+  {% if ENABLE_TOP_CUSTOMERS %}
   <div class="col-lg-6">
     <div class="card card-stacked">
       <div class="card-body">
@@ -119,7 +122,9 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
+  {% if ENABLE_TOP_PRODUCTS %}
   <div class="col-lg-6">
     <div class="card card-stacked">
       <div class="card-body">
@@ -141,6 +146,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
 
