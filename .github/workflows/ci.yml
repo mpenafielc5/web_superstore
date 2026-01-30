@@ -27,3 +27,13 @@ jobs:
       - name: Verificar proyecto Django
         run: |
           python manage.py check
+
+      - name: Build (simulado)
+        run: |
+          echo "Construyendo aplicación Django..."
+          echo "Build completado correctamente"
+
+      - name: Deploy (simulado)
+        run: |
+          echo "Desplegando aplicación..."
+          echo "Deploy simulado exitoso"          
