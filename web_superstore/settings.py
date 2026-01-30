@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'dashboard.context_processors.feature_flags',
             ],
         },
     },
@@ -77,18 +78,29 @@ WSGI_APPLICATION = 'web_superstore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
-        'USER': os.getenv('DB_USER', ''),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', ''),
-        'PORT': os.getenv('DB_PORT', ''),
-        'OPTIONS': {'charset': 'utf8mb4'},
-    }
-}
+USE_SQLITE = os.getenv("USE_SQLITE", "0") == "1"
 
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'superstore'),
+            'USER': os.getenv('DB_USER', 'superuser'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'superpass'),
+            'HOST': os.getenv('DB_HOST', 'db'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -130,3 +142,12 @@ STATICFILES_DIRS = [BASE_DIR / 'dashboard' / 'static']
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Feature flags – Línea de productos
+ENABLE_TOTAL_SALES = True
+ENABLE_CATEGORY_CHART = True
+ENABLE_TIME_SERIES = True
+
+ENABLE_SEGMENT_CHART = True
+ENABLE_TOP_CUSTOMERS = True
+ENABLE_TOP_PRODUCTS = True
