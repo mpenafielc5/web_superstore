@@ -1,4 +1,5 @@
 Superstore Dashboard (Django + MySQL)
+Presentación del proyecto: https://drive.google.com/file/d/1aNZidqCAOwJb__mwMNbuK7GCBG60Cm_o/view?usp=sharing
 
 Dashboard analítico para ventas de Superstore con filtros (fecha, categoría/subcategoría, estado/ciudad), KPIs, tablas y gráficos.
 Backend en Django con SQL crudo (sin ORM). Frontend con HTML/JS + Chart.js.
